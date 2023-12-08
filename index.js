@@ -6,6 +6,8 @@ const server = express();
 server.use(express.json());
 server.use(CORS({origin: "*", credentials: true}));
 
+server.use("/info", require("./Routers/InfoRouter.js"))
+
 const port = process.env._port ?? 5000;
 
 function StartServer() {
