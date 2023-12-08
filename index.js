@@ -12,9 +12,9 @@ server.use("/info", require("./Routers/InfoRouter.js"))
 
 const port = process.env._port ?? 5000;
 
-function StartServer() {
+async function StartServer() {
     try {
-        MySQLService.Connect();
+        await MySQLService.Connect();
         server.listen(port, () => console.log(`SERVER START ON PORT ${port}`))
     } 
     catch (error) {
