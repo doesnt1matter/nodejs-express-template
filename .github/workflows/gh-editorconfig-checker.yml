@@ -1,4 +1,4 @@
-name: Editorconfig file checker
+name: Editorconfig-checker
 on:
   workflow_dispatch:
   pull_request:
