@@ -4,7 +4,7 @@ const exec = require("child_process").exec;
 
 class InfoService {
     GetSizeOfDir() {
-        
+
     }
 
     GetSizeOfFile() {
