@@ -1,5 +1,6 @@
 name: Editorconfig file checker
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
