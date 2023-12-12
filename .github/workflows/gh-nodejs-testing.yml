@@ -1,5 +1,5 @@
 name: NodeJS Testing
-on: [workflow_dispatch, push]
+on: [workflow_dispatch]
 jobs:
     Checkout:
         strategy:
