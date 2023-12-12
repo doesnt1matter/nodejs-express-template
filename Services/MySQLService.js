@@ -1,7 +1,7 @@
 const mysql = require("mysql2");
 
 let POOL = null;
-class DBService 
+class DBService
 {
     CreatePool()
     {

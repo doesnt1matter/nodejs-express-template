@@ -10,10 +10,10 @@ Router.get("/sys", (req, res) => {
         {
             hostname: OS.hostname(),
             type: OS.type(),
-            platform: OS.platform(), 
-            machine: OS.machine(), 
-            arch: OS.arch(), 
-            karnel: OS.version(), 
+            platform: OS.platform(),
+            machine: OS.machine(),
+            arch: OS.arch(),
+            karnel: OS.version(),
             overlap: OS.availableParallelism(),
             сpus: OS.cpus()
         })
