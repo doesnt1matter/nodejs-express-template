@@ -13,7 +13,7 @@
   "description": "Server template",
   "main": "index.js",
   "scripts": {
-    "test": "npm start",
+    "test": "node index.js",
     "dev": "nodemon index.js"
   },
   "author": "AnPrAn",
