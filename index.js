@@ -21,7 +21,7 @@ async function StartServer() {
     try {
         await MySQLService.Connect();
         server.listen(port, () => console.log(`SERVER START ON PORT ${port}`));
-    } 
+    }
     catch (error) {
         console.log(error);
         process.exit(1);
@@ -29,5 +29,3 @@ async function StartServer() {
 }
 
 StartServer();
-
-module.exports = server;
