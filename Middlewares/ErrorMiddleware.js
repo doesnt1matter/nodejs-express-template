@@ -6,5 +6,5 @@ module.exports = (error, req, res, next) =>
     error.type = error.type ?? "SERVER"
 
     LogError(req, error);
-    res.status(error.statusCode).json({type: error.type, message: error.message});
+    res.status(error.statusCode).json({code: error.statusCode, type: error.type, message: error.statusCode >= 500 ? "Server error" : error.message});
 }

@@ -10,7 +10,7 @@ class LogService {
         const path = `./logs/requests/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
         const log = `${dt.full},${pid},${session.os.name}:${session.device},${session.browser.name}:${session.browser.version},${req.method},${req.originalUrl}`
         
-        this.Record(path, log);
+        LogService.Record(path, log);
 
         req.pid = pid;
         console.log(log);
@@ -21,7 +21,7 @@ class LogService {
         const path = `./logs/responses/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
         const log = `${dt.full},${req.pid},${res.statusCode},${res.statusMessage}`;
 
-        this.Record(path, log);
+        LogService.Record(path, log);
 
         console.log(log + "\n");
     }
@@ -31,10 +31,12 @@ class LogService {
         const path = `./logs/errors/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
         const log = `${dt.full},${req.pid},${error.statusCode},${error.type},${error.message}${error.statusCode >= 500 ? ","+error.stack : ""}`;
 
-        console.log(log + "\n");
+        LogService.Record(path, log)
+
+        console.log(log);
     }
 
-    Record(path, log) {
+    static Record(path, log) {
         if(FS.existsSync(path)) {
             FS.appendFileSync(path, log + "\n");
         }

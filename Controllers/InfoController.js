@@ -4,7 +4,6 @@ class InfoController {
     
     GetSystem(req, res, next) {
         try {
-            ss
             const data = InfoService.GetSystemInfo();
             res.json(data);
         }
