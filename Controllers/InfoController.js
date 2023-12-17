@@ -1,17 +1,10 @@
 const InfoService = require("../Services/InfoService.js");
 
 class InfoController {
-    GetMemory(req, res, next) {
-        try {
-
-        }
-        catch (error) {
-            next(error)
-        }
-    }
-
+    
     GetSystem(req, res, next) {
         try {
+            ss
             const data = InfoService.GetSystemInfo();
             res.json(data);
         }

@@ -1,15 +1,6 @@
 const OS = require("node:os");
-const FS = require("node:fs")
-const exec = require("child_process").exec;
 
 class InfoService {
-    GetSizeOfDir() {
-
-    }
-
-    GetSizeOfFile() {
-
-    }
 
     GetSystemInfo() {
         const info = {

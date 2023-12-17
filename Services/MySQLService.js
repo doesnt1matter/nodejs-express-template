@@ -26,6 +26,7 @@ class DBService
             .then(() => console.log("Successfully connected to MySQL"))
             .catch((error) => {
                 console.log(msqlErrors[error.errno] ?? "Connect to MySQL error!")
+                console.log("err-code: " + error.errno);
                 process.exit(1)
             })
     }

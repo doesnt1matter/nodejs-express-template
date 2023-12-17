@@ -1,24 +1,46 @@
 const DateService = require("./DateService.js");
 const IDService = require("./IDService.js");
-const fs = require("node:fs");
+const FS = require("node:fs");
 
 class LogService {
     LogRequest(req) {
-        const dt = DateService.Now().full;
-        const userAgent = req.headers['user-agent'];
+        const dt = DateService.Now();
         const pid = IDService.GenerateNumericID();
+        const session = req.session;
+        const path = `./logs/requests/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
+        const log = `${dt.full},${pid},${session.os.name}:${session.device},${session.browser.name}:${session.browser.version},${req.method},${req.originalUrl}`
+        
+        this.Record(path, log);
+
         req.pid = pid;
-        console.log(`${dt},${pid},${userAgent},${req.method},${req.originalUrl}`);
+        console.log(log);
     }
 
     LogResponse(req, res) {
-        const dt = DateService.Now().full;
-        console.log(`${dt},${req.pid},${res.statusCode},${res.statusMessage}`);
+        const dt = DateService.Now();
+        const path = `./logs/responses/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
+        const log = `${dt.full},${req.pid},${res.statusCode},${res.statusMessage}`;
+
+        this.Record(path, log);
+
+        console.log(log + "\n");
     }
 
     LogError(req, error) {
-        const dt = DateService.Now().full;
-        console.log(`${dt},${req.pid},${error.statusCode},${error.type},${error.message}${error.statusCode >= 500 ? ","+error.stack : ""}`);
+        const dt = DateService.Now();
+        const path = `./logs/errors/${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`
+        const log = `${dt.full},${req.pid},${error.statusCode},${error.type},${error.message}${error.statusCode >= 500 ? ","+error.stack : ""}`;
+
+        console.log(log + "\n");
+    }
+
+    Record(path, log) {
+        if(FS.existsSync(path)) {
+            FS.appendFileSync(path, log + "\n");
+        }
+        else {
+            FS.writeFileSync(path, log + "\n");
+        }
     }
 }
 
