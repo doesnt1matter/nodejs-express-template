@@ -1,7 +1,7 @@
 require("dotenv").config();
 const CORS = require("cors");
 const express = require("express");
-const ua = require("express-useragent")
+const ua = require("express-useragent");
 const server = express();
 
 const MySQLService = require("./Services/MySQLService.js");
