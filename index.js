@@ -1,10 +1,10 @@
 require("dotenv").config();
 const CORS = require("cors");
 const express = require("express");
-const ua = require("express-useragent");
 const server = express();
 
 const MySQLService = require("./Services/MySQLService.js");
+const CryptService = require("./Services/CryptService.js");
 
 server.use(express.json());
 server.use(CORS({origin: "*", credentials: true}));
