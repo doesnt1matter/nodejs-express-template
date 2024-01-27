@@ -4,13 +4,13 @@ const express = require("express");
 const server = express();
 
 const MySQLService = require("./Services/MySQLService.js");
-const CryptService = require("./Services/CryptService.js");
 
 server.use(express.json());
 server.use(CORS({origin: "*", credentials: true}));
 server.use(require('express-useragent').express());
 
 server.use(require("./Middlewares/UserAgentMiddleware.js"));
+server.use(require("./Middlewares/IPMiddleware.js"));
 server.use(require("./Middlewares/LogReqMiddleware.js"));
 server.use(require("./Middlewares/LogResMiddleware.js"));
 

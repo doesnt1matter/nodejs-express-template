@@ -1,9 +1,9 @@
 const mysql = require("mysql2");
 
 let POOL = null;
-class DBService
+class MySQLService
 {
-    CreatePool()
+    static CreatePool()
     {
         POOL = mysql.createPool({
             connectionLimit: 5,
@@ -14,7 +14,7 @@ class DBService
         }).promise();
     }
 
-    async CheckConnect()
+    static async CheckConnect()
     {
         const msqlErrors = {
             "-4078" : "MYSQL shotout",
@@ -31,13 +31,13 @@ class DBService
             })
     }
 
-    async Connect()
+    static async Connect()
     {
         this.CreatePool();
         await this.CheckConnect();
     }
 
-    async Query(sql, fields)
+    static async Query(sql, fields)
     {
         let result = await POOL.query(sql, fields)
             .catch((error) => {
@@ -50,4 +50,4 @@ class DBService
     }
 }
 
-module.exports = new DBService();
+module.exports = MySQLService;

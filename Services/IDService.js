@@ -1,5 +1,5 @@
 class IDService {
-    GenerateID() {
+    static GenerateID() {
         let d = new Date().getTime();
         if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
             d += performance.now();
@@ -12,11 +12,11 @@ class IDService {
         });
     }
 
-    GenerateNumericID() {
+    static GenerateNumericID() {
         const part1 = new Date().getUTCMilliseconds();
         const part2 = new Date().valueOf();
         return `${part1}${part2}`
     }
 }
 
-module.exports = new IDService();
+module.exports = IDService;

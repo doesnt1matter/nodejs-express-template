@@ -1,5 +1,5 @@
 class DateService {
-    Now() {
+    static Now() {
         const date = new Date();
 
         const year = date.getFullYear();
@@ -18,4 +18,4 @@ class DateService {
     }
 }
 
-module.exports = new DateService();
+module.exports = DateService;
