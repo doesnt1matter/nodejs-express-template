@@ -10,3 +10,7 @@
 {"date":"27.1.2024-11:57:23.65","pid":"661706345843066","OS":"Windows 10.0","device":["Desktop"],"browser":"Chrome:120.0.0.0","APIhost":"localhost:5000","method":"GET","URL":"/info/sys"}
 {"date":"27.1.2024-12:0:3.578","pid":"5791706346003579","OS":"Windows 10.0","device":["Desktop"],"browser":"Chrome:120.0.0.0","APIhost":"localhost:5000","method":"GET","URL":"/info/sys"}
 {"date":"27.1.2024-12:0:34.448","pid":"4481706346034448","OS":"Windows 10.0","device":["Desktop"],"browser":"Chrome:120.0.0.0","APIhost":"192.168.1.21:5000","method":"GET","URL":"/info/sys"}
+{"date":"27.1.2024-12:9:58.779","pid":"7801706346598780","OS":"Windows 10.0","device":["Desktop"],"browser":"Chrome:120.0.0.0","APIhost":"192.168.1.21:5000","method":"GET","URL":"/info/sys"}
+{"date":"27.1.2024-13:26:52.796","pid":"7961706351212796","OS":"OS X","device":["mobile","iPhone","Mac"],"browser":"Chrome:120.0.6099.119","APIhost":"192.168.1.21:5000","method":"GET","URL":"/info/sys"}
+{"date":"27.1.2024-13:26:53.449","pid":"4491706351213449","OS":"OS X","device":["mobile","iPhone","Mac"],"browser":"Chrome:120.0.6099.119","APIhost":"192.168.1.21:5000","method":"GET","URL":"/info/sys"}
+{"date":"27.1.2024-13:26:57.22","pid":"221706351217022","OS":"OS X","device":["mobile","iPhone","Mac"],"browser":"Chrome:120.0.6099.119","APIhost":"192.168.1.21:5000","method":"GET","URL":"/info/sys"}

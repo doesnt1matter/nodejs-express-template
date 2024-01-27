@@ -22,7 +22,7 @@ const port = process.env._port ?? 5000;
 
 async function StartServer() {
     try {
-        await MySQLService.Connect();
+        //await MySQLService.Connect();
         server.listen(port, () => console.log(`SERVER START ON PORT ${port}`));
     }
     catch (error) {
