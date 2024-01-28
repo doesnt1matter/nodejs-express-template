@@ -21,16 +21,17 @@ class LogService {
             browser: `${session.browser.name}:${session.browser.version}`,
             APIhost: host,
             method: req.method,
-            URL: req.originalUrl
+            URL: req.originalUrl,
+            ipInfo: req.ipInfo,
+            geoInfo: req.geoInfo
         } 
         
-
         LogService.Record(path, filename, JSON.stringify(log));
 
         req.pid = pid;
 
         console.log(`---REQUEST---${dt.full}---${pid}`);
-        console.log(log);
+        //console.log(log);
     }
 
     LogResponse(req, res) {
@@ -49,7 +50,7 @@ class LogService {
         LogService.Record(path, filename, JSON.stringify(log));
 
         console.log(`---RESPONSE---${dt.full}---${req.pid}`);
-        console.log(log);
+        //console.log(log);
     }
 
     LogError(req, error) {
@@ -67,10 +68,10 @@ class LogService {
             stack: error.statusCode >= 500 ? "," + error.stack : ""
         } 
 
-        LogService.Record(path, filename, JSON.stringify());
+        LogService.Record(path, filename, JSON.stringify(log));
 
         console.log(`---ERROR---${dt.full}---${req.pid}`);
-        console.log(log);
+        console.log(error);
     }
 
     static Record(path, filename, log) {

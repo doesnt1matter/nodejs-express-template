@@ -14,7 +14,7 @@ class DateService {
         const fullTime = `${hours}:${minutes}:${seconds}.${milliseconds}`;
         const full = `${fullDate}-${fullTime}`;
 
-        return {date, year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full};
+        return {timestamp: date, year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full};
     }
 }
 

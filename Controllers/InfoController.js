@@ -1,10 +1,12 @@
 const InfoService = require("../Services/InfoService.js");
+const User = require("../Models/User.js");
 
 class InfoController {
     
     GetSystem(req, res, next) {
         try {
             const data = InfoService.GetSystemInfo();
+
             res.json(data);
         }
         catch (error) {
