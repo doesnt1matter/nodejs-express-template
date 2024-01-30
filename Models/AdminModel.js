@@ -1,4 +1,4 @@
-const User = require("./User.js");
+const User = require("./UserModel.js");
 
 module.exports = 
 class Admin extends User

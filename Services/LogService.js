@@ -5,17 +5,16 @@ const FS = require("node:fs");
 class LogService {
     LogRequest(req) {
         const dt = DateService.Now();
-        const pid = IDService.GenerateNumericID();
+        const rid = IDService.GenerateNumericID();
         const session = req.session;
         const host = req.rawHeaders[1];
 
         const path = `./logs/requests${req.originalUrl}`;
         const filename = `${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`;
         
-        //const log = `${dt.full},${pid},${session.os.name}:${session.device},${session.browser.name}:${session.browser.version},${host},${req.method},${req.originalUrl}`
         const log = {
             date: dt.full,
-            pid: pid,
+            rid: rid,
             OS: session.os.name,
             device: session.device,
             browser: `${session.browser.name}:${session.browser.version}`,
@@ -28,10 +27,10 @@ class LogService {
         
         LogService.Record(path, filename, JSON.stringify(log));
 
-        req.pid = pid;
+        req.rid = rid;
+        req.startTimestamp = dt.timestamp;
 
-        console.log(`---REQUEST---${dt.full}---${pid}`);
-        //console.log(log);
+        console.log(`---REQUEST---${dt.full}---${rid}`);
     }
 
     LogResponse(req, res) {
@@ -39,18 +38,17 @@ class LogService {
         const path = `./logs/responses${req.originalUrl}`;
         const filename = `${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`;
         
-        //const log = `${dt.full},${req.pid},${res.statusCode},${res.statusMessage}`;
         const log = {
             date: dt.full,
-            pid: req.pid,
+            rid: req.rid,
+            delay: dt.timestamp - req.startTimestamp,
             statusCode: res.statusCode,
             statusMessage: res.statusMessage
         } 
 
         LogService.Record(path, filename, JSON.stringify(log));
 
-        console.log(`---RESPONSE---${dt.full}---${req.pid}`);
-        //console.log(log);
+        console.log(`---RESPONSE---${dt.full}---${req.rid}`);
     }
 
     LogError(req, error) {
@@ -58,10 +56,10 @@ class LogService {
         const path = `./logs/errors${req.originalUrl}`;
         const filename = `${dt.fullDate}${req.originalUrl.replaceAll("/", "-")}.log`;
         
-        //const log = `${dt.full},${req.pid},${error.statusCode},${error.type},${error.message}${error.statusCode >= 500 ? "," + error.stack : ""}`;
         const log = {
             date: dt.full,
-            pid: req.pid,
+            rid: req.rid,
+            delay: dt.timestamp - req.startTimestamp,
             statusCode: error.statusCode,
             message: error.message,
             isFatal: error.statusCode >= 500,
@@ -70,8 +68,8 @@ class LogService {
 
         LogService.Record(path, filename, JSON.stringify(log));
 
-        console.log(`---ERROR---${dt.full}---${req.pid}`);
-        console.log(error);
+        console.log(`---ERROR---${dt.full}---${req.rid}`);
+        console.log(error.message, log.isFatal ? error.stack : "");
     }
 
     static Record(path, filename, log) {

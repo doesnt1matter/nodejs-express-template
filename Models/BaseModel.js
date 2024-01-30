@@ -5,13 +5,13 @@ module.exports =
 class Base 
 {
     id;
-    createDate;
-    updateDate;
+    createAt;
+    updateAt;
 
     constructor() 
     {
         this.id = IDService.GenerateID();
-        this.createDate = DateService.Now();
-        this.updateDate = this.createDate;
+        this.createAt = DateService.Now();
+        this.updateAt = this.createAt;
     }
 }

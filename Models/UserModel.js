@@ -1,4 +1,4 @@
-const Base = require("./Base.js");
+const Base = require("./BaseModel.js");
 const CryptService = require("../Services/CryptService.js");
 
 module.exports = 

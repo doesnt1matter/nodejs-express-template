@@ -17,9 +17,9 @@ class MySQLService
     static async CheckConnect()
     {
         const msqlErrors = {
-            "-4078" : "MYSQL shotout",
+            "-4078" : "MYSQL service is off",
             "1045" : "MYSQL USER invalid credentials",
-            "1049" : "MYSQL uncorrect SCHEMA",
+            "1049" : "MYSQL invalid SCHEMA",
         }
 
         await POOL.getConnection()

@@ -1,5 +1,4 @@
 const InfoService = require("../Services/InfoService.js");
-const User = require("../Models/User.js");
 
 class InfoController {
     
