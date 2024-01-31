@@ -22,3 +22,13 @@
 {"date":"30.1.2024-16:13:42.808","rid":"7701706620422770","delay":39,"statusCode":200,"statusMessage":"OK"}
 {"date":"30.1.2024-16:14:23.128","rid":"951706620463095","delay":34,"statusCode":200,"statusMessage":"OK"}
 {"date":"30.1.2024-16:20:32.387","rid":"3321706620832332","delay":57,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:6:43.953","rid":"9441706634403944","delay":10,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:14:27.98","rid":"791706634867079","delay":21,"statusCode":500,"statusMessage":"Internal Server Error"}
+{"date":"30.1.2024-20:39:27.331","rid":"2881706636367288","delay":44,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:39:31.373","rid":"3581706636371358","delay":15,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:42:38.510","rid":"4841706636558484","delay":27,"statusCode":500,"statusMessage":"Internal Server Error"}
+{"date":"30.1.2024-20:42:49.213","rid":"1871706636569187","delay":28,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:43:28.530","rid":"5171706636608517","delay":13,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:43:59.827","rid":"8111706636639811","delay":17,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-20:51:10.94","rid":"751706637070075","delay":20,"statusCode":200,"statusMessage":"OK"}
+{"date":"30.1.2024-21:50:7.321","rid":"3111706640607311","delay":11,"statusCode":200,"statusMessage":"OK"}

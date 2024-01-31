@@ -2,7 +2,7 @@ const OS = require("node:os");
 
 class InfoService {
 
-    GetSystemInfo() {
+    static GetSystemInfo() {
         const info = {
             hostname: OS.hostname(),
             type: OS.type(),
@@ -20,15 +20,15 @@ class InfoService {
         return info;
     }
 
-    GetInterfaces() {
+    static GetInterfaces() {
         const interfaces = { interfaces: OS.networkInterfaces() };
         return interfaces;
     }
 
-    GetLoad() {
+    static GetLoad() {
         const load = { load: OS.loadavg() };
         return load;
     }
 }
 
-module.exports = new InfoService();
+module.exports = InfoService;

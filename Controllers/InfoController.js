@@ -2,10 +2,9 @@ const InfoService = require("../Services/InfoService.js");
 
 class InfoController {
     
-    GetSystem(req, res, next) {
+    static GetSystem(req, res, next) {
         try {
             const data = InfoService.GetSystemInfo();
-
             res.json(data);
         }
         catch (error) {
@@ -13,9 +12,10 @@ class InfoController {
         }
     }
 
-    GetInterfaces(req, res, next) {
+    static GetInterfaces(req, res, next) {
         try {
             const data = InfoService.GetInterfaces();
+
             res.json(data);
         }
         catch (error) {
@@ -23,7 +23,7 @@ class InfoController {
         }
     }
 
-    GetLoad(req, res, next) {
+    static GetLoad(req, res, next) {
         try {
             const data = InfoService.GetLoad();
             res.json(data);
@@ -34,4 +34,4 @@ class InfoController {
     }
 }
 
-module.exports = new InfoController();
+module.exports = InfoController;
