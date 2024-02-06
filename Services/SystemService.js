@@ -1,6 +1,6 @@
 const OS = require("node:os");
 
-class InfoService {
+class SystemService {
 
     static GetSystemInfo() {
         const info = {
@@ -31,4 +31,4 @@ class InfoService {
     }
 }
 
-module.exports = InfoService;
+module.exports = SystemService;

@@ -1,10 +1,10 @@
-const InfoService = require("../Services/InfoService.js");
+const SystemService = require("../Services/SystemService.js");
 
-class InfoController {
+class SystemController {
     
     static GetSystem(req, res, next) {
         try {
-            const data = InfoService.GetSystemInfo();
+            const data = SystemService.GetSystemInfo();
             res.json(data);
         }
         catch (error) {
@@ -14,8 +14,7 @@ class InfoController {
 
     static GetInterfaces(req, res, next) {
         try {
-            const data = InfoService.GetInterfaces();
-
+            const data = SystemService.GetInterfaces();
             res.json(data);
         }
         catch (error) {
@@ -25,7 +24,7 @@ class InfoController {
 
     static GetLoad(req, res, next) {
         try {
-            const data = InfoService.GetLoad();
+            const data = SystemService.GetLoad();
             res.json(data);
         }
         catch (error) {
@@ -34,4 +33,4 @@ class InfoController {
     }
 }
 
-module.exports = InfoController;
+module.exports = SystemController;

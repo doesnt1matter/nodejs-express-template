@@ -8,8 +8,8 @@ class TokenService {
     };
 
     static CreateRefresh(payload) {
-        const accessToken = new JWTTokenModel("refresh", payload);
-        return accessToken;
+        const refreshToken = new JWTTokenModel("refresh", payload);
+        return refreshToken;
     };
 
     static Verify(token) {
@@ -21,6 +21,13 @@ class TokenService {
         });
 
         return userDTO;
+    }
+
+    static Refresh(refreshToken) {
+        const payload = Verify(refreshToken);
+
+        if(payload) return CreateAccess(payload);
+        else return payload;
     }
 }
 
