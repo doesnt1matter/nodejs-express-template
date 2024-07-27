@@ -15,8 +15,8 @@ class TokenService {
     static Verify(token) {
         let userDTO = null;
 
-        JWT.verify(token, process.env._api_jwtkey, function(error, payload) {
-            if(error) console.log("Token is expired!");
+        JWT.verify(token, process.env._api_jwtkey, function (error, payload) {
+            if (error) console.log("Token is expired!");
             else userDTO = payload;
         });
 
@@ -26,7 +26,7 @@ class TokenService {
     static Refresh(refreshToken) {
         const payload = Verify(refreshToken);
 
-        if(payload) return CreateAccess(payload);
+        if (payload) return CreateAccess(payload);
         else return payload;
     }
 }

@@ -3,16 +3,15 @@ const CORS = require("cors");
 const express = require("express");
 const server = express();
 
-const MySQLService = require("./Services/MySQLService.js");
+const MySQLConnector = require("./Services/MySQLConnector.js");
+const PostgreSQLConnector = require("./Services/PostgreSQLConnector.js");
 
 server.use(express.json());
-server.use(CORS({origin: "*", credentials: true}));
+server.use(CORS({ origin: "*", credentials: true }));
 server.use(require('express-useragent').express());
 
 server.use(require("./Middlewares/UserAgentMiddleware.js"));
 server.use(require("./Middlewares/IPMiddleware.js"));
-server.use(require("./Middlewares/LogReqMiddleware.js"));
-server.use(require("./Middlewares/LogResMiddleware.js"));
 
 server.use("/system", require("./Routers/SystemRouter.js"));
 server.use("/auth", require("./Routers/AuthRouter.js"));
@@ -23,7 +22,8 @@ const port = process.env._port ?? 5000;
 
 async function StartServer() {
     try {
-        //await MySQLService.Connect();
+        //await MySQLConnector.Connect();
+        //await PostgreSQLConnector.connect();
         server.listen(port, () => console.log(`SERVER START ON PORT ${port}`));
     }
     catch (error) {
