@@ -6,8 +6,8 @@ class UserService {
         return candidate;
     }
 
-    static Create(login, password, email, phone, ipInfo, geoInfo) {
-        const user = new User(login, password, email, phone, ipInfo, geoInfo);
+    static Create(login, password, email, phone) {
+        const user = new User(login, password, email, phone);
         return user;
     }
 }
