@@ -1,21 +1,18 @@
 const Base = require("./BaseModel.js");
-const CryptService = require("../Services/CryptService.js");
 
 module.exports =
     class User extends Base {
-        login;
-        password;
+        username;
         role = "USER";
 
-        constructor(login, password, email, phone) {
+        constructor(username, email, password, phone) {
             super();
-            this.login = login;
+            this.username = username;
             this.email = email;
             this.phone = phone;
-            this.password = CryptService.Encrypt(password);
         }
 
         Info() {
-            console.log(` ${this.id}:${this.login}:${this.role}-${JSON.stringify(this.updateDate)}`);
+            console.log(` ${this.id}:${this.login}:${this.role}-${JSON.stringify(this.updateAt)}`);
         }
     }

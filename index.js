@@ -5,6 +5,7 @@ const server = express();
 
 const MySQLConnector = require("./Services/MySQLConnector.js");
 const PostgreSQLConnector = require("./Services/PostgreSQLConnector.js");
+const ErrorService = require("./Services/ErrorService.js");
 
 server.use(express.json());
 server.use(CORS({ origin: "*", credentials: true }));
@@ -23,7 +24,7 @@ const port = process.env._port ?? 5000;
 async function StartServer() {
     try {
         //await MySQLConnector.Connect();
-        //await PostgreSQLConnector.connect();
+        await PostgreSQLConnector.Connect();
         server.listen(port, () => console.log(`SERVER START ON PORT ${port}`));
     }
     catch (error) {

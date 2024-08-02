@@ -14,9 +14,9 @@ class MySQLConnector {
 
     static async CheckConnect() {
         const msqlErrors = {
-            "-4078": "MYSQL service is off",
-            "1045": "MYSQL USER invalid credentials",
-            "1049": "MYSQL invalid SCHEMA",
+            "-4078": "MYSQL: Service is down",
+            "1045": "MYSQL: User invalid credentials",
+            "1049": "MYSQL: Invalid schema",
         }
 
         await POOL.getConnection()

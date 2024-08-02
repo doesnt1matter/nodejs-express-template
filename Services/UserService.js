@@ -1,14 +1,28 @@
 const User = require("../Models/UserModel.js");
+const PostgreSQLConnector = require("./PostgreSQLConnector.js");
 
 class UserService {
-    static Get(id) {
-        let candidate;
-        return candidate;
+    static async Get(condition) {
+        return await PostgreSQLConnector.Query(`select * from users where ${condition};`);
     }
 
-    static Create(login, password, email, phone) {
-        const user = new User(login, password, email, phone);
+    static async Create(username, email, password) {
+        const user = new User(username, email, password);
+
+        await PostgreSQLConnector.Query(`
+                insert into users (id, createAt, updateAt, username, role, email, phone) 
+                values ('${user.id}', '${user.createAt}', '${user.updateAt}', '${user.username}', '${user.role}', '${user.email}', '${user.phone}');`
+        )
+
         return user;
+    }
+
+    static async Delete() {
+
+    }
+
+    static async Update() {
+
     }
 }
 
