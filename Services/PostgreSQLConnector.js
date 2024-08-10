@@ -1,43 +1,43 @@
 const pg = require("pg");
-const ErrorService = require("./ErrorService");
+const ErrorService = require("./ErrorService.js");
 
 class PostgreSQLConnector {
 
-    static connector
-    static config
+    static Client
+    static Config
 
-    static createConnector() {
-        PostgreSQLConnector.config = {
-            user: process.env.PG_USER,
-            password: process.env.PG_PASSWORD,
-            host: process.env.PG_HOST,
-            port: process.env.PG_PORT,
-            database: process.env.PG_DATABASE,
+    static CreateConnector() {
+        PostgreSQLConnector.Config = {
+            user: process.env._pg_db_user,
+            password: process.env._pg_db_password,
+            host: process.env._pg_db_host,
+            port: process.env._pg_db_port,
+            database: process.env._pg_db_database
         }
 
-        PostgreSQLConnector.connector = new pg.Client(this.config);
+        PostgreSQLConnector.Client = new pg.Client(this.Config);
     }
 
-    async connect() {
+    static async Connect() {
         try {
-            PostgreSQLConnector.createConnector();
-            await PostgreSQLConnector.connector.connect();
+            PostgreSQLConnector.CreateConnector();
+            await PostgreSQLConnector.Client.connect();
 
             console.log('CONNECTED TO PostgreSQL');
         } catch (error) {
-            let message = "Unrecognized error!"
+            let message = "PostgreSQL: Unrecognized error!"
 
             switch (error.code) {
                 case "ECONNREFUSED":
-                    message = "Service is down!"
+                    message = "PostgreSQL: Service is down!"
                     break;
 
                 case "3D000":
-                    message = "Database is not exists!"
+                    message = "PostgreSQL: Database is not exists!"
                     break;
 
                 case "28P01":
-                    message = "Authorization failed!"
+                    message = "PostgreSQL: Authorization failed!"
                     break;
 
                 default:
@@ -47,6 +47,10 @@ class PostgreSQLConnector {
             console.error(message);
         }
     }
+
+    static async Query(sql) {
+        return await PostgreSQLConnector.Client.query(`${sql}`);
+    }
 }
 
-module.exports = new PostgreSQLConnector();
+module.exports = PostgreSQLConnector;

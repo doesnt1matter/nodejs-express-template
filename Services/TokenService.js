@@ -16,7 +16,9 @@ class TokenService {
         let userDTO = null;
 
         JWT.verify(token, process.env._api_jwtkey, function (error, payload) {
-            if (error) console.log("Token is expired!");
+            if (error) {
+                console.error(error.message.toUpperCase() + "!");
+            }
             else userDTO = payload;
         });
 
