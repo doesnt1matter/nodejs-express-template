@@ -6,19 +6,6 @@ const ErrorService = require("../Services/ErrorService.js");
 
 class AuthController {
 
-    static async Get(req, res, next) {
-        try {
-            //PARAMS
-            const id = req.params["id"];
-
-            //GET USER
-            const user = await UserService.Get(`id='${id}' or username='${id}' or email='${id}'`);
-            res.json({ user: user.rows[0] });
-        }
-        catch (error) {
-            next(error)
-        }
-    }
     static async Registate(req, res, next) {
         try {
             //BODY
@@ -62,15 +49,59 @@ class AuthController {
             next(error)
         }
     }
-    static async Delete(req, res, next) {
+    static async Logout(req, res, next) {
         try {
+
         }
         catch (error) {
             next(error)
         }
     }
-    static async UpdateUser(req, res, next) {
+
+    //USER CONTROLLER
+    static async Get(req, res, next) {
         try {
+            //PARAMS
+            const id = req.body.id;
+
+            //GET USER
+            const user = await UserService.Get(`id='${id}' or username='${id}' or email='${id}'`);
+            if (!user.rows.length) return ErrorService.ThrowBadRequest("User is not exists!");
+
+            res.json(user.rows[0]);
+        }
+        catch (error) {
+            next(error)
+        }
+    }
+    static async Delete(req, res, next) {
+        try {
+            //PARAMS
+            const { id, password } = req.body;
+
+            //GET USER
+            const userObj = await UserService.Get(`id='${id}' or username='${id}' or email='${id}'`);
+            if (!userObj.rows.length) return ErrorService.ThrowBadRequest("User is not exists!");
+
+            //FIND PASSWORD FOR USER
+            const passwordObj = await PasswordService.Get(`user_id='${userObj.rows[0].id}'`);
+
+            //AUTHORIZATION
+            const validate = PasswordService.Compare(password, passwordObj.rows[0].value);
+            if (validate) await UserService.Delete(id);
+            else {
+                return ErrorService.ThrowBadRequest("Password is not valid!");
+            }
+
+            res.json({ message: "Delete success!" })
+        }
+        catch (error) {
+            next(error)
+        }
+    }
+    static async Update(req, res, next) {
+        try {
+
         }
         catch (error) {
             next(error)

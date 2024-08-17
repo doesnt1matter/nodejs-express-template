@@ -1,4 +1,5 @@
 const User = require("../Models/UserModel.js");
+const PasswordService = require("./PasswordService.js");
 const PostgreSQLConnector = require("./PostgreSQLConnector.js");
 
 class UserService {
@@ -17,8 +18,13 @@ class UserService {
         return user;
     }
 
-    static async Delete() {
+    static async Delete(identificator) {
+        await PasswordService.Delete(identificator);
 
+        await PostgreSQLConnector.Query(`
+            delete from users where id='${identificator}' or email='${identificator}'
+            `
+        )
     }
 
     static async Update() {

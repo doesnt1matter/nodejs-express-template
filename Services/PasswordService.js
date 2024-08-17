@@ -10,14 +10,23 @@ class PasswordService {
    static async Create(password, userId) {
       const passwordObj = new Password(password, userId);
 
-      return await PostgreSQLConnector.Query(`
+      await PostgreSQLConnector.Query(`
             insert into passwords (id, user_id, createAt, updateAt, value) 
             values ('${passwordObj.id}', '${passwordObj.userId}', '${passwordObj.createAt}', '${passwordObj.updateAt}', '${passwordObj.value}');`
       )
+
+      return passwordObj;
    }
 
    static async Update() {
 
+   }
+
+   static async Delete(identificator) {
+      await PostgreSQLConnector.Query(`
+          delete from passwords where user_id='${identificator}'
+          `
+      )
    }
 
    static Compare(password, hash) {
