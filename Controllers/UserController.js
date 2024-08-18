@@ -1,5 +1,5 @@
 const DateService = require("../Services/DateService.js");
-const TokenService = require("../Services/TokenService.js");
+const TokenService = require("../Services/JWTService.js");
 const UserService = require("../Services/UserService.js");
 const PasswordService = require("../Services/PasswordService.js");
 const ErrorService = require("../Services/ErrorService.js");
@@ -7,7 +7,6 @@ const ErrorService = require("../Services/ErrorService.js");
 class UserController {
     static async Get(req, res, next) {
         try {
-            console.log(DateService.SplitTimestamp(req.user.createat));
             res.json(req.user);
         }
         catch (error) {

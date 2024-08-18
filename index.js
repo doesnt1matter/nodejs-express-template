@@ -12,8 +12,7 @@ server.use(cookieParser());
 server.use(CORS({ origin: "*", credentials: true }));
 server.use(require('express-useragent').express());
 
-server.use(require("./Middlewares/UserAgentMiddleware.js"));
-server.use(require("./Middlewares/IPMiddleware.js"));
+server.use(require("./Middlewares/DeviceMiddleware.js"));
 server.use(require("./Middlewares/CooldownMiddleware.js"));
 
 server.use("/system", require("./Routers/SystemRouter.js"));

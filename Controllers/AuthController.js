@@ -1,8 +1,9 @@
 const DateService = require("../Services/DateService.js");
-const TokenService = require("../Services/TokenService.js");
+const TokenService = require("../Services/JWTService.js");
 const UserService = require("../Services/UserService.js");
 const PasswordService = require("../Services/PasswordService.js");
 const ErrorService = require("../Services/ErrorService.js");
+const JWTService = require("../Services/JWTService.js");
 
 class AuthController {
 
@@ -28,8 +29,10 @@ class AuthController {
     }
     static async Login(req, res, next) {
         try {
-            res.json({ validate: req.validatePassword });
+            const accessToken = await JWTService.CreateAccess({ userId: req.user.id, session: req.session });
+
             //res.cookie("refreshToken", refreshToken.value, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly });
+            res.json({ validate: "ok!" });
         }
         catch (error) {
             next(error)

@@ -9,7 +9,7 @@ module.exports =
 
         constructor() {
             this.id = IDService.GenerateID();
-            this.createAt = DateService.Now().full;
+            this.createAt = DateService.Now().timestamp;
             this.updateAt = this.createAt;
         }
     }
