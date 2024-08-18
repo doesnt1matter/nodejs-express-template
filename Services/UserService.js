@@ -1,4 +1,5 @@
 const User = require("../Models/UserModel.js");
+const DateService = require("./DateService.js");
 const PasswordService = require("./PasswordService.js");
 const PostgreSQLConnector = require("./PostgreSQLConnector.js");
 
@@ -6,7 +7,6 @@ class UserService {
     static async Get(condition) {
         return await PostgreSQLConnector.Query(`select * from users where ${condition};`);
     }
-
     static async Create(username, email, password) {
         const user = new User(username, email, password);
 
@@ -17,7 +17,6 @@ class UserService {
 
         return user;
     }
-
     static async Delete(identificator) {
         await PasswordService.Delete(identificator);
 
@@ -26,9 +25,18 @@ class UserService {
             `
         )
     }
+    static async Update(userId, params) {
+        let changes = [];
+        for (let prop in params) changes.push(`${prop} = '${params[prop]}'`);
 
-    static async Update() {
+        const updatedUser = await PostgreSQLConnector.Query(`
+            update users
+            set updateat='${DateService.Now().full}', ${changes.join(', ')}
+            where id='${userId}'
+            returning *
+            `)
 
+        return updatedUser;
     }
 }
 

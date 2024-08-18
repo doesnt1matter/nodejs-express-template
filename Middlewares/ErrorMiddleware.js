@@ -1,6 +1,16 @@
 module.exports = (error, req, res, next) => {
-    res.cookie("errors", req.cookies.errors ? JSON.parse(req.cookies.errors) + 1 : 1, { maxAge: process.env.longCooldown, httpOnly: true });
+    //COUNT ERRORS
+    const now = Date.now();
+    const longCooldown = JSON.parse(process.env.longCooldown);
+    const resetTime = now + longCooldown;
+    const errorsLimit = JSON.parse(process.env.errorLimit);
 
+    let errors = req.cookies.errors ? JSON.parse(req.cookies.errors) : { count: 0, resetTime };
+    errors.count += 1;
+
+    if (errors.count <= errorsLimit) res.cookie("errors", JSON.stringify(errors), { maxAge: longCooldown, httpOnly: true });
+
+    //HANDLE ERRORS
     error.statusCode = error.statusCode ?? 500
     error.type = error.type ?? "SERVER"
 

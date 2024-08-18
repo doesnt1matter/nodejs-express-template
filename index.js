@@ -17,6 +17,7 @@ server.use(require("./Middlewares/IPMiddleware.js"));
 server.use(require("./Middlewares/CooldownMiddleware.js"));
 
 server.use("/system", require("./Routers/SystemRouter.js"));
+server.use("/user", require("./Routers/UserRouter.js"));
 server.use("/auth", require("./Routers/AuthRouter.js"));
 
 server.use(require("./Middlewares/ErrorNotFoundMiddleware.js"));

@@ -19,7 +19,7 @@ class AuthController {
             const userObj = await UserService.Create(username, email, password);
             const passwordObj = await PasswordService.Create(password, userObj.id);
 
-            //BACKUP
+            //RESPONSE
             res.json({ user: userObj, password: passwordObj });
         }
         catch (error) {
@@ -28,21 +28,7 @@ class AuthController {
     }
     static async Login(req, res, next) {
         try {
-            //BODY
-            const { username, email, password } = req.body;
-
-            //FIND USER
-            const identificator = username ?? email;
-            const userObj = await UserService.Get(`username='${identificator}' or email='${identificator}'`);
-            if (!userObj.rows.length) return ErrorService.ThrowBadRequest("User doesnt exists!");
-
-            //FIND PASSWORD FOR USER
-            const passwordObj = await PasswordService.Get(`user_id='${userObj.rows[0].id}'`);
-
-            //AUTHORIZATION
-            const validate = PasswordService.Compare(password, passwordObj.rows[0].value);
-
-            res.json({ validate });
+            res.json({ validate: req.validatePassword });
             //res.cookie("refreshToken", refreshToken.value, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly });
         }
         catch (error) {
@@ -50,56 +36,6 @@ class AuthController {
         }
     }
     static async Logout(req, res, next) {
-        try {
-
-        }
-        catch (error) {
-            next(error)
-        }
-    }
-
-    //USER CONTROLLER
-    static async Get(req, res, next) {
-        try {
-            //PARAMS
-            const id = req.body.id;
-
-            //GET USER
-            const user = await UserService.Get(`id='${id}' or username='${id}' or email='${id}'`);
-            if (!user.rows.length) return ErrorService.ThrowBadRequest("User is not exists!");
-
-            res.json(user.rows[0]);
-        }
-        catch (error) {
-            next(error)
-        }
-    }
-    static async Delete(req, res, next) {
-        try {
-            //PARAMS
-            const { id, password } = req.body;
-
-            //GET USER
-            const userObj = await UserService.Get(`id='${id}' or username='${id}' or email='${id}'`);
-            if (!userObj.rows.length) return ErrorService.ThrowBadRequest("User is not exists!");
-
-            //FIND PASSWORD FOR USER
-            const passwordObj = await PasswordService.Get(`user_id='${userObj.rows[0].id}'`);
-
-            //AUTHORIZATION
-            const validate = PasswordService.Compare(password, passwordObj.rows[0].value);
-            if (validate) await UserService.Delete(id);
-            else {
-                return ErrorService.ThrowBadRequest("Password is not valid!");
-            }
-
-            res.json({ message: "Delete success!" })
-        }
-        catch (error) {
-            next(error)
-        }
-    }
-    static async Update(req, res, next) {
         try {
 
         }

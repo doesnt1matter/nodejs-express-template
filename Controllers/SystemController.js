@@ -1,7 +1,6 @@
 const SystemService = require("../Services/SystemService.js");
 
 class SystemController {
-    
     static GetSystem(req, res, next) {
         try {
             const data = SystemService.GetSystemInfo();
@@ -11,7 +10,6 @@ class SystemController {
             next(error)
         }
     }
-
     static GetInterfaces(req, res, next) {
         try {
             const data = SystemService.GetInterfaces();
@@ -21,7 +19,6 @@ class SystemController {
             next(error)
         }
     }
-
     static GetLoad(req, res, next) {
         try {
             const data = SystemService.GetLoad();

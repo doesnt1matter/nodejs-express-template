@@ -1,5 +1,5 @@
 class DateService {
-    static NowFull() {
+    static Now() {
         const date = new Date();
 
         const year = date.getFullYear();
@@ -12,22 +12,18 @@ class DateService {
 
         const fullDate = `${day}.${month}.${year}`;
         const fullTime = `${hours}:${minutes}:${seconds}.${milliseconds}`;
-        const full = `${fullDate}-${fullTime}`;
+        const full = `${fullDate}T${fullTime}Z`;
 
-        return { timestamp: date, year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full };
-    }
-
-    static Now() {
-        return new Date();
+        return { year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full };
     }
 
     static SplitTimestamp(timestamp) {
         const temp = timestamp.split("T");
 
         const fullDate = temp[0].replaceAll("-", ".");
-        const splittedFullDate = fullDate.split("-");
+        const splittedFullDate = fullDate.split(".");
 
-        const fullTime = temp[1].replaceAll("Z", "").replaceAll(".", ":");
+        const fullTime = temp[1].replaceAll("Z", "");
         const splittedFullTime = fullTime.split(":");
 
         const year = splittedFullDate[0];
@@ -35,12 +31,12 @@ class DateService {
         const day = splittedFullDate[2];
         const hours = splittedFullTime[0];
         const minutes = splittedFullTime[1];
-        const seconds = splittedFullTime[2];
-        const milliseconds = splittedFullTime[3];
+        const seconds = splittedFullTime[2].split(".")[0];
+        const milliseconds = splittedFullTime[2].split(".")[1];
 
-        const full = `${fullDate}-${fullTime}`;
+        const full = `${fullDate}T${fullTime}Z`;
 
-        return { timestamp: timestamp, year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full };
+        return { year, month, day, hours, minutes, seconds, milliseconds, fullDate, fullTime, full };
     }
 }
 
