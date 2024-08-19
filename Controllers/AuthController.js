@@ -4,6 +4,7 @@ const UserService = require("../Services/UserService.js");
 const PasswordService = require("../Services/PasswordService.js");
 const ErrorService = require("../Services/ErrorService.js");
 const JWTService = require("../Services/JWTService.js");
+const PostgreSQLConnector = require("../Services/PostgreSQLConnector.js");
 
 class AuthController {
 
@@ -30,9 +31,12 @@ class AuthController {
     static async Login(req, res, next) {
         try {
             const accessToken = await JWTService.CreateAccess({ userId: req.user.id, session: req.session });
+            const refreshToken = await JWTService.CreateRefresh({ userId: req.user.id, session: req.session });
 
-            //res.cookie("refreshToken", refreshToken.value, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly });
-            res.json({ validate: "ok!" });
+            res.cookie("refreshToken",
+                JSON.stringify({ user: { id: req.user.id, device: req.session.id }, value: refreshToken.value }),
+                { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: true });
+            res.json({ accessToken: accessToken.value });
         }
         catch (error) {
             next(error)
@@ -40,7 +44,26 @@ class AuthController {
     }
     static async Logout(req, res, next) {
         try {
+            const refreshToken = JSON.parse(req.cookies?.refreshToken ?? "null");
+            JWTService.DeleteSession(refreshToken?.user.id, refreshToken?.user.device);
+            res.clearCookie("refreshToken");
+        }
+        catch (error) {
+            next(error)
+        }
+    }
+    static async Refresh(req, res, next) {
+        try {
+            const refreshToken = JSON.parse(req.cookies?.refreshToken ?? "null");
 
+            if (!JWTService.Verify(refreshToken?.value)) {
+                JWTService.DeleteSession(refreshToken?.user.id, refreshToken?.user.device);
+                ErrorService.ThrowUnauthorizedError("Session is deprecated!");
+            }
+
+            const accessToken = await JWTService.Refresh(refreshToken?.value);
+
+            res.json({ accessToken });
         }
         catch (error) {
             next(error)

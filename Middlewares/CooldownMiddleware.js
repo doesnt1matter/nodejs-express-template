@@ -19,12 +19,11 @@ module.exports = (req, res, next) => {
     if (now > errors.resetTime) { errors = { count: 0, resetTime: now + longCooldown }; }
 
     //LIMIT ERRORS
-    if (attempts.count >= requestLimit) {
-        ErrorService.ThrowCooldown(`Too much requests! Try after ${Math.ceil((attempts.resetTime - now) / 1000)} seconds`);
-    }
-
     if (errors.count >= errorLimit) {
         ErrorService.ThrowCooldown(`Too much errors! Try after ${Math.ceil((errors.resetTime - now) / 1000)} seconds`);
+    }
+    if (attempts.count >= requestLimit) {
+        ErrorService.ThrowCooldown(`Too much requests! Try after ${Math.ceil((attempts.resetTime - now) / 1000)} seconds`);
     }
 
     //LIMIT COUNT

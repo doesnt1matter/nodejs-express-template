@@ -1,13 +1,15 @@
 require("dotenv").config();
 const CORS = require("cors");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 const express = require("express");
 const server = express();
 
 const MySQLConnector = require("./Services/MySQLConnector.js");
 const PostgreSQLConnector = require("./Services/PostgreSQLConnector.js");
 
-server.use(express.json());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cookieParser());
 server.use(CORS({ origin: "*", credentials: true }));
 server.use(require('express-useragent').express());

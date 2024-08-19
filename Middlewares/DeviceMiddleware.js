@@ -32,7 +32,8 @@ module.exports = (req, res, next) => {
         return r;
     }
 
-    const deviceId = (browser.name + browser.version + os.name + os.platform + userAgentIs(device).join("")).replaceAll(".", "").replaceAll(" ", "");
+    const deviceId = (browser.name + os.name + os.platform + userAgentIs(device).join("")).replaceAll(".", "").replaceAll(" ", "");
+
 
     req.ipInfo = ipInfo;
     req.geoInfo = geoInfo;
@@ -40,12 +41,7 @@ module.exports = (req, res, next) => {
         browser,
         os,
         device: userAgentIs(device),
-        deviceId: deviceId.toLowerCase()
+        id: deviceId.toLowerCase()
     }
-
-    console.log(req.geoInfo);
-    console.log(req.ipInfo);
-    console.log(req.session);
-
-    next()
+    next();
 }
