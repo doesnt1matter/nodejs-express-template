@@ -32,16 +32,14 @@ module.exports = (req, res, next) => {
         return r;
     }
 
-    const deviceId = (browser.name + os.name + os.platform + userAgentIs(device).join("")).replaceAll(".", "").replaceAll(" ", "");
-
-
     req.ipInfo = ipInfo;
     req.geoInfo = geoInfo;
     req.session = {
         browser,
         os,
         device: userAgentIs(device),
-        id: deviceId.toLowerCase()
+        id: req.useragent.source
     }
+
     next();
 }

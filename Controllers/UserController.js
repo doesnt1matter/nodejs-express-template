@@ -7,6 +7,7 @@ const ErrorService = require("../Services/ErrorService.js");
 class UserController {
     static async Get(req, res, next) {
         try {
+            //console.log(req.session);
             res.json(req.user);
         }
         catch (error) {

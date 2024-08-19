@@ -3,9 +3,10 @@ const JWTService = require("../Services/JWTService");
 
 module.exports = (req, res, next) => {
     const refreshTokenCookie = JSON.parse(req.cookies?.refreshToken ?? "null");
+    const accessTokenHeaders = req.headers.authorization ? req.headers.authorization.authorization?.split(" ")[1] : null
 
-    const accessToken = { value: req.headers.authorization.split(" ")[1], payload: JWTService.Verify(req.headers.authorization.split(" ")[1]) }
-    const refreshToken = { value: req.cookies.refreshToken, payload: JWTService.Verify(refreshTokenCookie?.value) }
+    const accessToken = { value: accessTokenHeaders, payload: JWTService.Verify(accessTokenHeaders) }
+    const refreshToken = { value: refreshTokenCookie?.value ?? null, payload: JWTService.Verify(refreshTokenCookie?.value) }
 
     //CHECK TOKENS
     if (!refreshToken.payload) {
